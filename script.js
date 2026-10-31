@@ -1,0 +1,7 @@
+const hearts=document.getElementById('hearts');
+function makeHeart(){if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;const el=document.createElement('span');el.className='floating-heart';el.textContent=['♡','♥','✧','❀'][Math.floor(Math.random()*4)];el.style.left=Math.random()*100+'vw';el.style.fontSize=(12+Math.random()*20)+'px';el.style.animationDuration=(5+Math.random()*5)+'s';hearts.appendChild(el);el.addEventListener('animationend',()=>el.remove());}
+setInterval(()=>{if(!document.hidden)makeHeart()},1100);
+const letterButton=document.getElementById('open-letter');const letter=document.getElementById('letter-content');letterButton.addEventListener('click',()=>{const opening=letter.hidden;letter.hidden=!opening;letterButton.setAttribute('aria-expanded',String(opening));if(opening)setTimeout(()=>letter.scrollIntoView({behavior:'smooth',block:'center'}),100)});
+function celebrate(){for(let i=0;i<34;i++)setTimeout(makeHeart,i*65)}
+document.getElementById('surprise-btn').addEventListener('click',()=>{document.getElementById('surprise-reveal').hidden=false;document.getElementById('surprise-btn').hidden=true;celebrate()});document.getElementById('again-btn').addEventListener('click',celebrate);
+for(let i=1;i<=4;i++){const photo=document.querySelector(`[data-photo="${i}"]`);const img=new Image();img.onload=()=>{photo.style.backgroundImage=`url("photos/${i}.jpg")`;photo.classList.add('has-image')};img.src=`photos/${i}.jpg`;}
